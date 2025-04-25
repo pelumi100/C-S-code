@@ -1,0 +1,69 @@
+{
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+h5 {
+    font-family: "Arial", sans-serif;
+  }
+ {
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+
+  h1 {
+    color: #fdfdfd;
+  }
+h5{
+    color: #ffffff;
+  }
+h2 {
+    color: #fcfcfc;
+  }
+ 
+  
+
+h1 {
+    text-shadow: 2px 2px 5px rgb(31, 10, 10);
+  }
+h2 {
+    text-shadow: 15px 15px 15px rgb(31, 10, 10);
+  }
+h5 {
+    text-shadow: 15px 15px 15px rgb(31, 10, 10);
+  }
+ 
+  .rounded-box {
+    border: 5px solid #351f1f; /* Black border */
+    border-radius: 30px; /* Rounded corners */
+    padding: 20px; /* Space inside the box */
+    width: 1000px; /* Width of the box */
+    text-align: center; /* Center the text */
+}
+
+
+
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('../bg.png'); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+ button {
+    background-color: #3a0a0a;
+    color: rgb(253, 253, 253);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+   
+  button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }

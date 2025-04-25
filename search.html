@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hymn Search</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #4e342e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #d7ccc8;
+      margin-bottom: 20px;
+    }
+
+    #searchWrapper {
+      position: relative;
+      width: 300px;
+    }
+
+    #searchBox {
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: none;
+      width: 100%;
+      font-size: 16px;
+      outline: none;
+    }
+
+    #suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #6d4c41;
+      border-radius: 0 0 12px 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .suggestion {
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .suggestion:hover {
+      background-color: #8d6e63;
+    }
+
+    #results {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .result {
+      background-color: #6d4c41;
+      padding: 15px 20px;
+      border-radius: 12px;
+    }
+
+    .result a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #addLinkForm {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 300px;
+    }
+
+    #addLinkForm input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+
+    #addLinkForm button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: #8d6e63;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #addLinkForm button:hover {
+      background-color: #a1887f;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ayo ni O!</h1>
+    <h2>Search "Back" to go Back</h2>
+    
+
+  <div id="searchWrapper">
+    <input type="text" id="searchBox" placeholder="Search..." autocomplete="off"/>
+    <div id="suggestions"></div>
+  </div>
+
+  <div id="results"></div>
+
+  <!-- 👇 Add Link Form -->
+  
+   
+  </form>
+
+  <script>
+    // Try loading from localStorage or use defaults
+    let links = JSON.parse(localStorage.getItem("customLinks")) || [
+
+      { title: "Baba a de loni", url: "baba.html" },
+        { title: "Emi y'o Gbadura s' Oba mi Edumare", url: "emi.html" },
+        { title: "Back", url: "mywebsite2.html" },
+        { title: "Olorun baba awa ", url: "olorunbabawa.html" },
+
+
+
+       
+    ];
+
+    const searchBox = document.getElementById("searchBox");
+    const suggestionsContainer = document.getElementById("suggestions");
+    const resultsContainer = document.getElementById("results");
+    const addLinkForm = document.getElementById("addLinkForm");
+    const linkTitle = document.getElementById("linkTitle");
+    const linkURL = document.getElementById("linkURL");
+
+    // Save links to localStorage
+    function saveLinks() {
+      localStorage.setItem("customLinks", JSON.stringify(links));
+    }
+
+    // Handle search
+    searchBox.addEventListener("input", () => {
+      const query = searchBox.value.toLowerCase();
+      suggestionsContainer.innerHTML = "";
+      resultsContainer.innerHTML = "";
+
+      if (query.trim() === "") return;
+
+      const filtered = links.filter(link =>
+        link.title.toLowerCase().includes(query)
+      );
+
+      filtered.forEach(link => {
+        const div = document.createElement("div");
+        div.className = "suggestion";
+        div.textContent = link.title;
+
+        div.addEventListener("click", () => {
+          window.open(link.url, "_blank");
+          searchBox.value = "";
+          suggestionsContainer.innerHTML = "";
+        });
+
+        suggestionsContainer.appendChild(div);
+      });
+
+      filtered.forEach(link => {
+        const result = document.createElement("div");
+        result.classList.add("result");
+
+        const a = document.createElement("a");
+        a.href = link.url;
+        a.textContent = link.title;
+        a.target = "_blank";
+
+        result.appendChild(a);
+        resultsContainer.appendChild(result);
+      });
+    });
+
+    // Add custom link from form
+    addLinkForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const title = linkTitle.value.trim();
+      const url = linkURL.value.trim();
+
+      if (title && url) {
+        links.push({ title, url });
+        saveLinks(); // Save to localStorage
+
+        linkTitle.value = "";
+        linkURL.value = "";
+        alert("Link added!");
+      }
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!document.getElementById("searchWrapper").contains(e.target)) {
+        suggestionsContainer.innerHTML = "";
+      }
+    });
+  </script>
+</body>
+</html>

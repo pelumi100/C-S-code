@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baba ade loni o!</title>
+  <style>
+    :root {
+      --bg-color: #5c4033;
+      --text-color: #f5f2ed;
+      --card-bg: #4b3621;
+      --link-color: #f5f2ed;
+    }
+
+    body.light-mode {
+      --bg-color: #f5f2ed;
+      --text-color: #4b3621;
+      --card-bg: #fff;
+      --link-color: #5c4033;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 1s ease-in-out, color 1s ease-in-out;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 18px;
+      transition: transform 0.6s ease, background 0.6s, color 0.6s;
+    }
+
+    .toggle-mode:hover {
+      transform: rotate(360deg) scale(1.1);
+    }
+
+    .navbar {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 999;
+      background: var(--card-bg);
+      padding: 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      animation: fadeSlideIn 1s ease forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-button {
+      background: linear-gradient(135deg, #5c4033, #2a1b11);
+      color: #f5f2ed;
+      padding: 10px 14px;
+      font-size: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 160px;
+    }
+
+    .dropdown-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #2a1b11, #5c4033);
+    }
+
+    .dropdown-content {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      min-width: 200px;
+      max-height: 300px;
+      overflow-y: auto;
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .dropdown-content a {
+      padding: 10px 12px;
+      text-decoration: none;
+      color: var(--link-color);
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .back-menu {
+      padding: 10px 12px;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .content {
+      max-width: 700px;
+      margin: 120px auto;
+      padding: 20px;
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    h3 {
+      font-size: 24px;
+      color: var(--text-color);
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-mode" id="themeToggle">♱</button>
+  <div class="navbar">
+    <div class="dropdown">
+      <button class="dropdown-button"><strong>Orin a kunle ko</strong></button>
+      <div class="dropdown-content">
+        <div class="back-menu" onclick="event.stopPropagation(); this.parentElement.style.display='none';">Back</div>
+        <a href="emi.html"><strong>Hymn i:</strong> Emi y'o Gbadura s' Oba mi Edumare</a>
+        <a href="#"><strong>Hymn ii:</strong> Baba a de loni o!</a>
+        <a href="#"><strong>Hymn iii:</strong> Ye-Oluwa ade</a>
+        <a href="#"><strong>Hymn iv:</strong> Olugbala gbadura wa</a>
+        <a href="#"><strong>Hymn v:</strong> Olorun Baba wa</a>
+        <a href="#"><strong>Hymn vi:</strong> Oluwa awa de, kabiyesi Oba wa</a>
+        <a href="#"><strong>Hymn vii:</strong> Jah L' oke a de o, a tun de</a>
+        <a href="#"><strong>Hymn viii:</strong> Wa! Wa ba wa gbe O</a>
+        <a href="#"><strong>Hymn ix:</strong> E wa s'apakan, k'e simi die</a>
+        <a href="#"><strong>Hymn x:</strong> Jesu wa sarin wa</a>
+        <a href="#"><strong>Hymn xi:</strong> Olorun a de loni o</a>
+      
+        <!-- Add more links here if needed -->
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-button"><strong>Orin Idaraya</strong></button>
+      <div class="dropdown-content">
+        <div class="back-menu" onclick="event.stopPropagation(); this.parentElement.style.display='none';">Back</div>
+        <a href="#"><strong>Hymn 4:</strong>Wa s'odo mi, oluwa mi</a>
+        <a href="#"><strong>Hymn 5:</strong>Wa s'adura oro</a>
+        <a href="#"><strong>Hymn 6:</strong>Oluwa mi, mo njade lo</a>
+        <a href="#"><strong>Hymn 7:</strong>Jesu Orun ododo</a>
+        <a href="#"><strong>Hymn 8:</strong>Orun ododo, jowo la</a>
+        <a href="#"><strong>Hymn 9:</strong>L'oju ale,'gbat' orun wo</a>
+        <a href="#"><strong>Hymn 10:</strong>Baba, a tun pade l'oko Jesu</a>
+        <a href="#"><strong>Hymn 11:</strong>K'a to sun, Olugnala wa</a>
+        <a href="#"><strong>Hymn 12:</strong>Jesu, bukun wa k'a to lo;</a>
+        <a href="#"><strong>Hymn 13:</strong>A GBOJU soke si O</a>
+        <a href="#"><strong>Hymn 14:</strong>IFE RE da wa si loni</a>
+        <a href="#"><strong>Hymn 15:</strong>'Wo imole! larin okun aiye</a>
+        <a href="#"><strong>Hymn 16:</strong>Oluwa, ojo t'o fun wa pin</a>
+        <a href="#"><strong>Hymn 17:</strong>ERo di dun kan nso</a>
+        <a href="#"><strong>Hymn 18:</strong>IWO imole okan mi</a>
+        <a href="#"><strong>Hymn 19:</strong>WA ba mi gbe ale fere le tan</a>
+       
+
+        <!-- Add more links here if needed -->
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-button"><strong>Orin Ojo isimi</strong></button>
+      <div class="dropdown-content">
+        <div class="back-menu" onclick="event.stopPropagation(); this.parentElement.style.display='none';">Back</div>
+
+        <a href="#"><strong>Hymn 20:</strong>OSE,Ose rere</a>
+        <a href="#"><strong>Hymn 21:</strong>Ojo Isimi at' ayo</a>
+        <a href="#"><strong>Hymn 22:</strong>Jesu, a w' odo Re</a>
+        <a href="#"><strong>Hymn 23:</strong>K'awa to pari eko wa</a>
+        <a href="#"><strong>Hymn 24:</strong>Olua'Agutan mi</a>
+        <a href="#"><strong>Hymn 25:</strong>Oluwa awa de</a>
+        <a href="#"><strong>Hymn 26:</strong>Gbogbo ara aiye</a>
+        <a href="#"><strong>Hymn 27:</strong>Gbogbo eniyin ar'aiye</a>
+        <a href="#"><strong>Hymn 28:</strong>Olorun ojo simi</a>
+        <a href="#"><strong>Hymn 29:</strong>Olorun' wa orun</a>
+        <a href="#"><strong>Hymn 30:</strong>Jesu a fe pade</a>
+        <a href="#"><strong>Hymn 31:</strong>Bi mo ti yo lati gb'oro</a>
+        <a href="#"><strong>Hymn 32:</strong>Eyi l'ojo t' Oluwa da</a>
+        <a href="#"><strong>Hymn 33:</strong>Olus' Agutan eni re</a>
+        <a href="#"><strong>Hymn 34:</strong>A Be a fe ri O</a>
+        <a href="#"><strong>Hymn 35:</strong>Oluwa ojo isimi</a>
+        <a href="#"><strong>Hymn 36:</strong>Oluwa, mo fe' ri</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropdown-button"></strong>Back</button>
+      <div class="dropdown-content">
+        <div class="back-menu" onclick="event.stopPropagation(); this.parentElement.style.display='none';">Back</div>
+        <a href="mywebsite2.html"><strong>Home</strong></a>
+        <a href="mywebsite.html"><strong>History♱</strong></a>
+        <!-- Add more links here if needed -->
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h3>Baba a de loni o </h3>
+    <p><strong>Baba-a de loni o-wa sure fun wa ka to lo</strong></p>
+    <p>Soh: Doh:/-Re: Mi: Fah: Mi: Re: Doh:/-Re: Re: Doh:/ Re: Re: Re: Doh</p>
+    <p><strong>Repition: Baba a de loni o-wa sure fun wa ka to lo.</strong></p>
+    <p>Soh: Doh:/ Re: Mi: Fah: Mi: Re: Doh:/-Re: Re: Doh:/ Re: Re: Re: Doh</p>
+    <p><strong>Olu Orun-Jowo ye ye o</strong></p>
+    <p>Mi: Soh": Soh": Mi:-Mi: Fah: Soh": Lah": Soh": </p>
+    <p><strong>Edumare</strong></p>
+    <p>Re: Re: Re: Re:</p>
+    <p><strong>Baba- a de loni o- wa sure fun wa ka to lo</strong></p>
+    <p>Soh: Doh:/ Re: Mi: Fah: Mi: Re: Doh:/-Re: Re: Doh:/ Re: Re: Re: Doh</p>
+    <p><strong>Awon agan-to wa nibi</strong></p>
+    <p>Doh: Mi: Mi: Doh:- Soh": Doh:/ Mi: Soh" </p>
+    <p><strong>Je ki won finu s'oyun, </strong></p>
+    <p>Soh": Soh": Soh": Mi: Soh": Mi: Soh"</p>
+    <p><strong>Awon-t'o ti bimo</strong></p>
+    <p>Mi: Soh":- Lah: Soh: Lah: Soh: </p>
+    <p><strong>Je ki won r'owo fi to won</strong></p>
+    <p>Lah: Lah: Lah: Lah: Lah: Soh: Lah: Soh</p>
+    <p><strong>Awon-ti ko r'ise se</strong></p>
+    <p>Soh: Lah:- Doh": Mi:/ Soh: Lah: Soh:</p>
+    <p><strong>Pese ise fun won</strong></p>
+    <p>Mi: Mi: Soh: Lah: Lah: Soh</p>
+    <p><strong>Awon-t'ile n le</strong></p>
+    <p>Mi: Fah:-Soh: Soh: Soh: </p>
+    <p><strong>Ke ki ile r'oju fun won</strong></p>
+    <p>Lah: Lah: Lah: Lah: Lah: Lah: Lah: Soh: </p>
+    <p><strong>Edu-ma-re</strong></p>
+    <p>Re: Re: Re: Re </p>
+    <p><strong>Dan-kun-dan-kun-dakun</strong></p>
+    <p>Soh Fah:- Mi: Re:- Doh: Lah <p>
+    <p><strong>Ba-ba mimo</strong></p>
+    <p>Soh: Doh: Doh: </p>
+    <p><strong>Baba- a de loni o</strong></p>
+    <p>Soh: Doh:- Re: Mi: Fah: Mi: Re: Doh</p>
+    <p><strong>Wa sure fun wa ka to lo</strong></p>
+    <p>Re: Re: Doh: Re: Doh: Re: Re: Doh</p>
+
+  </div>
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      toggleBtn.textContent = document.body.classList.contains('light-mode') ? '☀' : '♱';
+    });
+  </script>
+</body>
+</html>

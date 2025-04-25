@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C&S Hymns Tonic Sofas 🎵🎶</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fafafa;
+      color: #222;
+      transition: background-color 0.8s ease, color 0.8s ease;
+      overflow-x: hidden;
+    }
+
+    body.dark {
+      background-color: #1a1a1a;
+      color: #fafafa;
+    }
+
+    .background-anim {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 20%, rgba(92,64,51,0.05), transparent),
+                  radial-gradient(circle at 80% 80%, rgba(92,64,51,0.05), transparent);
+      background-size: 200% 200%;
+      animation: backgroundMove 15s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes backgroundMove {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .floating-notes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .note {
+      position: absolute;
+      font-size: 20px;
+      color: #5c4033;
+      animation: floatNote 10s linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes floatNote {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background-color: #5c4033;
+      padding: 15px;
+      position: fixed;
+      top: 40px;
+      left: 30px;
+      border-radius: 15px;
+      z-index: 999;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      gap: 6px;
+      animation: slideInLeft 0.7s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+    }
+
+    .dropdown button {
+      background: linear-gradient(135deg, #5c4033, #2a1b11);
+      color: white;
+      padding: 12px 16px;
+      font-size: 15px;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown button:hover {
+      background: linear-gradient(135deg, #2a1b11, #5c4033);
+      transform: scale(1.03);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .dropdown-content {
+      display: none;
+      flex-direction: column;
+      background-color: #fff;
+      margin-top: 4px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      animation: slideDown 0.3s ease-out;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .dropdown-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .dropdown-content::-webkit-scrollbar-thumb {
+      background: #5c4033;
+      border-radius: 3px;
+    }
+
+    .dropdown-content a {
+      color: #5c4033;
+      padding: 10px 14px;
+      font-size: 14px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #2a1b11;
+      color: white;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .theme-toggle-cross {
+      position: fixed;
+      top: 50px;
+      right: 30px;
+      font-size: 28px;
+      width: 55px;
+      height: 55px;
+      background: radial-gradient(circle at 30% 30%, #5c4033, #3b2b22);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(92, 64, 51, 0.3);
+      transition: all 0.5s ease;
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    .theme-toggle-cross:hover {
+      transform: rotate(360deg) scale(1.1);
+      background: radial-gradient(circle at 70% 70%, #3b2b22, #5c4033);
+      box-shadow: 0 0 20px 4px rgba(92, 64, 51, 0.4);
+    }
+
+    body.dark .theme-toggle-cross {
+      background: radial-gradient(circle at 40% 40%, #222, #444);
+      color: #f1c40f;
+      box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+    }
+
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 0 10px rgba(92, 64, 51, 0.3); }
+      50% { box-shadow: 0 0 18px rgba(92, 64, 51, 0.6); }
+    }
+
+    .flip {
+      animation: flipCross 0.4s ease forwards;
+    }
+
+    @keyframes flipCross {
+      0% { transform: rotateY(0deg); opacity: 1; }
+      50% { transform: rotateY(90deg); opacity: 0.5; }
+      100% { transform: rotateY(180deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-anim"></div>
+  <div class="floating-notes" id="floating-notes"></div>
+
+  <div class="navbar">
+    <div class="dropdown">
+      <button><strong>Orin a kunle ko</strong></button>
+      <div class="dropdown-content">
+        <a href="emi.html"><strong>Hymn i:</strong> Emi y'o Gbadura s' Oba mi Edumare</a>
+        <a href="baba.html"><strong>Hymn ii:</strong> Baba a de loni o!</a>
+        <a href="#"><strong>Hymn iii:</strong> Ye-Oluwa ade</a>
+        <a href="#"><strong>Hymn iv:</strong> Olugbala gbadura wa</a>
+        <a href="olorunbabawa.html"><strong>Hymn v:</strong> Olorun Baba wa</a>
+        <a href="#"><strong>Hymn vi:</strong> Oluwa awa de, kabiyesi Oba wa</a>
+        <a href="#"><strong>Hymn vii:</strong> Jah L' oke a de o, a tun de</a>
+        <a href="#"><strong>Hymn viii:</strong> Wa! Wa ba wa gbe O</a>
+        <a href="#"><strong>Hymn ix:</strong> E wa s'apakan, k'e simi die</a>
+        <a href="#"><strong>Hymn x:</strong> Jesu wa sarin wa</a>
+        <a href="#"><strong>Hymn xi:</strong> Olorun a de loni o</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button><strong> Orin Owuro, Orin Ale</strong></button>
+      <div class="dropdown-content">
+        <a href="#"><strong>Hymn 4:</strong>Wa s'odo mi, oluwa mi</a>
+        <a href="#"><strong>Hymn 5:</strong>Wa s'adura oro</a>
+        <a href="#"><strong>Hymn 6:</strong>Oluwa mi, mo njade lo</a>
+        <a href="#"><strong>Hymn 7:</strong>Jesu Orun ododo</a>
+        <a href="#"><strong>Hymn 8:</strong>Orun ododo, jowo la</a>
+        <a href="#"><strong>Hymn 9:</strong>L'oju ale,'gbat' orun wo</a>
+        <a href="#"><strong>Hymn 10:</strong>Baba, a tun pade l'oko Jesu</a>
+        <a href="#"><strong>Hymn 11:</strong>K'a to sun, Olugnala wa</a>
+        <a href="#"><strong>Hymn 12:</strong>Jesu, bukun wa k'a to lo;</a>
+        <a href="#"><strong>Hymn 13:</strong>A GBOJU soke si O</a>
+        <a href="#"><strong>Hymn 14:</strong>IFE RE da wa si loni</a>
+        <a href="#"><strong>Hymn 15:</strong>'Wo imole! larin okun aiye</a>
+        <a href="#"><strong>Hymn 16:</strong>Oluwa, ojo t'o fun wa pin</a>
+        <a href="#"><strong>Hymn 17:</strong>ERo di dun kan nso</a>
+        <a href="#"><strong>Hymn 18:</strong>IWO imole okan mi</a>
+        <a href="#"><strong>Hymn 19:</strong>WA ba mi gbe ale fere le tan</a>
+       
+
+        
+        
+      </div>
+    </div>
+    <div class="dropdown">
+      <button><strong>Orin Ojo Simi</strong></button>
+      <div class="dropdown-content">
+        <a href="#"><strong>Hymn 20:</strong>OSE,Ose rere</a>
+        <a href="#"><strong>Hymn 21:</strong>Ojo Isimi at' ayo</a>
+        <a href="#"><strong>Hymn 22:</strong>Jesu, a w' odo Re</a>
+        <a href="#"><strong>Hymn 23:</strong>K'awa to pari eko wa</a>
+        <a href="#"><strong>Hymn 24:</strong>Olua'Agutan mi</a>
+        <a href="#"><strong>Hymn 25:</strong>Oluwa awa de</a>
+        <a href="#"><strong>Hymn 26:</strong>Gbogbo ara aiye</a>
+        <a href="#"><strong>Hymn 27:</strong>Gbogbo eniyin ar'aiye</a>
+        <a href="#"><strong>Hymn 28:</strong>Olorun ojo simi</a>
+        <a href="#"><strong>Hymn 29:</strong>Olorun' wa orun</a>
+        <a href="#"><strong>Hymn 30:</strong>Jesu a fe pade</a>
+        <a href="#"><strong>Hymn 31:</strong>Bi mo ti yo lati gb'oro</a>
+        <a href="#"><strong>Hymn 32:</strong>Eyi l'ojo t' Oluwa da</a>
+        <a href="#"><strong>Hymn 33:</strong>Olus' Agutan eni re</a>
+        <a href="#"><strong>Hymn 34:</strong>A Be a fe ri O</a>
+        <a href="#"><strong>Hymn 35:</strong>Oluwa ojo isimi</a>
+        <a href="#"><strong>Hymn 36:</strong>Oluwa, mo fe' ri</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button>Hymn 37-</button>
+      <div class="dropdown-content">
+        <a href="#">Choice 1</a>
+        <a href="#">Choice 2</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button>Search,Back</button>
+      <div class="dropdown-content">
+        <a href="mywebsite.html">History♱</a>
+        <a href="search.html">Search🔍</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="theme-toggle-cross" id="toggle-theme">♱</div>
+
+  <script>
+    const toggle = document.getElementById("toggle-theme");
+
+    toggle.addEventListener("click", () => {
+      toggle.classList.add("flip");
+      document.body.classList.toggle("dark");
+
+      setTimeout(() => {
+        toggle.textContent = document.body.classList.contains("dark") ? "☼" : "♱";
+        toggle.classList.remove("flip");
+      }, 300);
+    });
+
+    // Floating notes
+    const notes = ["♪", "♫", "♬", "♩"];
+    const noteContainer = document.getElementById("floating-notes");
+
+    function spawnNote() {
+      const note = document.createElement("div");
+      note.className = "note";
+      note.innerText = notes[Math.floor(Math.random() * notes.length)];
+      note.style.left = Math.random() * 100 + "vw";
+      note.style.top = Math.random() * 100 + "vh";
+      note.style.fontSize = Math.random() * 20 + 15 + "px";
+      note.style.animationDuration = (5 + Math.random() * 10) + "s";
+
+      noteContainer.appendChild(note);
+
+      setTimeout(() => note.remove(), 15000);
+    }
+
+    setInterval(spawnNote, 1000);
+  </script>
+</body>
+</html>
