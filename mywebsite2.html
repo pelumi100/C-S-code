@@ -293,7 +293,7 @@
     <div class="dropdown">
       <button>Search,Back</button>
       <div class="dropdown-content">
-        <a href="mywebsite.html">History♱</a>
+        <a href="index.html">History♱</a>
         <a href="search.html">Search🔍</a>
       </div>
     </div>
@@ -321,7 +321,7 @@
     function spawnNote() {
       const note = document.createElement("div");
       note.className = "note";
-      note.innerText = notes[Math.floor(Math.random() * notes.length)];
+      note.innerText = notes[Mat.floor(Math.random() * notes.length)];
       note.style.left = Math.random() * 100 + "vw";
       note.style.top = Math.random() * 100 + "vh";
       note.style.fontSize = Math.random() * 20 + 15 + "px";
